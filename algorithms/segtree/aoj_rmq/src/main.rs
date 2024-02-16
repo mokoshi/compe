@@ -1,8 +1,32 @@
 // https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A&lang=jp
-
-const INF: u32 = (1 << 31) - 1;
+use my_rmq_segtree::MyRmqSegtree;
 
 fn main() {
+    // raw_impl();
+    use_my_lib();
+}
+
+fn use_my_lib() {
+    let l = read_line();
+    let n = l[0] as usize;
+    let q = l[1];
+
+    let mut segtree = MyRmqSegtree::new(n);
+    for _ in 0..q {
+        let l = read_line();
+        let cmd = l[0];
+        let x = l[1];
+        let y = l[2] as u64;
+        if cmd == 0 {
+            segtree.update(x as usize, y);
+        } else {
+            println!("{}", segtree.query(x as usize, y as usize + 1,))
+        }
+    }
+}
+
+const INF: u32 = (1 << 31) - 1;
+fn raw_impl() {
     let l = read_line();
     let n = l[0];
     let q = l[1];
@@ -21,11 +45,8 @@ fn main() {
         let x = l[1];
         let y = l[2];
         if cmd == 0 {
-            // println!("Update: a[{}] = {}", x, y);
             update(x as usize, y, leave_num, &mut segtree);
-            // println!("Segtree: {:?}", segtree);
         } else {
-            // println!("Find: [{}, {}]", x, y);
             println!(
                 "{}",
                 find(

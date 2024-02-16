@@ -3,12 +3,5 @@
 version = 3
 
 [[package]]
-name = "aoj_rmq"
-version = "0.1.0"
-dependencies = [
- "my-rmq-segtree",
-]
-
-[[package]]
-name = "my-rmq-segtree"
+name = "my-segtree"
 version = "0.1.0"
